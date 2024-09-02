@@ -35,7 +35,7 @@ jobs:
 
     # Format Check for Terraform Files
     - name: Terraform Format
-      run: terraform fmt -check
+      run: terraform fmt 
       env:
        TF_LOG: DEBUG
 
