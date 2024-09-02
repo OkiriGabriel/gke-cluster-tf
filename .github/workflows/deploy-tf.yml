@@ -41,12 +41,12 @@ jobs:
 
       # working-directory: ./terraform
 
-    # # Terraform Plan
-    # - name: Terraform Plan
-    #   run: terraform plan
-    #   # working-directory: ./terraform
+    # Terraform Plan
+    - name: Terraform Plan
+      run: terraform plan
+      # working-directory: ./terraform
 
     # Apply Terraform Configuration
     - name: Terraform Apply
-      run: terraform destroy -auto-approve
+      run: terraform apply -auto-approve
       # working-directory: ./terraform
