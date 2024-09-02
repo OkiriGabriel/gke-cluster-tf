@@ -1,4 +1,5 @@
 resource "kubernetes_deployment" "api" {
+   depends_on = [google_container_cluster.primary]
   metadata {
     name = "time-api"
     labels = {
