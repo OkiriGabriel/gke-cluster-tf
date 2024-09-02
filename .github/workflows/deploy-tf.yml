@@ -31,19 +31,19 @@ jobs:
     # Initialize Terraform (ensures it recognizes GCS backend)
     - name: Terraform Init
       run: terraform init
-      working-directory: ./terraform
+      # working-directory: ./terraform
 
     # Format Check for Terraform Files
     - name: Terraform Format
       run: terraform fmt -check
-      working-directory: ./terraform
+      # working-directory: ./terraform
 
     # Terraform Plan
     - name: Terraform Plan
       run: terraform plan
-      working-directory: ./terraform
+      # working-directory: ./terraform
 
     # Apply Terraform Configuration
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: ./terraform
+      # working-directory: ./terraform
