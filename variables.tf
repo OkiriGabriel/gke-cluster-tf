@@ -19,7 +19,7 @@ variable "gke_num_nodes" {
 variable "machine_type" {
   description = "Machine type for GKE nodes"
   type        = string
-  default     = "n1-standard-1"
+  default     = "e2-micro"
 }
 
 variable "min_master_version" {
