@@ -13,7 +13,7 @@ variable "region" {
 variable "gke_num_nodes" {
   description = "Number of nodes in the GKE cluster"
   type        = number
-  default     = 3
+  default     = 2
 }
 
 variable "machine_type" {
@@ -31,6 +31,7 @@ variable "min_master_version" {
 variable "image_tag" {
   description = "Tag for the Docker image"
   type        = string
+  default = "shortlet"
 }
 
 variable "vpc_cidr" {
