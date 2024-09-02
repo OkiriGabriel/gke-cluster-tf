@@ -16,26 +16,34 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
+    # Authenticate with Google Cloud
     - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
+      uses: google-github-actions/auth@v1
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
+    # Set up Google Cloud SDK
     - name: Setup Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    # Initialize Terraform (ensures it recognizes GCS backend)
     - name: Terraform Init
       run: terraform init
       working-directory: ./terraform
 
+    # Format Check for Terraform Files
     - name: Terraform Format
       run: terraform fmt -check
       working-directory: ./terraform
 
+    # Terraform Plan
     - name: Terraform Plan
       run: terraform plan
       working-directory: ./terraform
 
+    # Apply Terraform Configuration
     - name: Terraform Apply
       run: terraform apply -auto-approve
       working-directory: ./terraform
