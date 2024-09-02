@@ -11,9 +11,13 @@ provider "google" {
 
 # Obtain the credentials for the cluster
 data "google_client_config" "default" {}
+data "google_container_cluster" "gke" {
+  name     = google_container_cluster.gke_cluster.name
+  location = google_container_cluster.gke_cluster.location
+}
 
 provider "kubernetes" {
-  host                   = google_container_cluster.gke.endpoint
+  host                   = data.google_container_cluster.gke.endpoint
   token                  = data.google_client_config.default.access_token
   # Optionally add TLS config if needed
   # tls_config {

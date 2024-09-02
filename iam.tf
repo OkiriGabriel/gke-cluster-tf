@@ -1,5 +1,5 @@
 resource "google_service_account" "gke_sa" {
-  account_id   = "104530214238026815502"
+  account_id   = "shortlet-api"
   display_name = "gke-k8s"
 }
 
