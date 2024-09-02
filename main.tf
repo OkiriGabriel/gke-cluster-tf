@@ -17,10 +17,9 @@ data "google_container_cluster" "gke" {
 }
 
 provider "kubernetes" {
-  host                   = data.google_container_cluster.gke.endpoint
-  token                  = data.google_client_config.default.access_token
-  # Optionally add TLS config if needed
-  # tls_config {
-  #   ca_certificate = data.google_container_cluster.gke.master_auth[0].cluster_ca_certificate
-  # }
+  host  = "https://${data.google_container_cluster.gke.endpoint}"
+  token = data.google_client_config.provider.access_token
+  cluster_ca_certificate = base64decode(
+    data.google_container_cluster.gke.master_auth[0].cluster_ca_certificate,
+  )
 }
