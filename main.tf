@@ -10,7 +10,7 @@ provider "google" {
 # }
 
 # Obtain the credentials for the cluster
-data "google_client_config" "default" {}
+data "google_client_config" "provider" {}
 data "google_container_cluster" "gke" {
   name     = "${ google_container_cluster.primary.name }"
   location = google_container_cluster.primary.location
