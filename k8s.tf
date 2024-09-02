@@ -24,7 +24,7 @@ resource "kubernetes_deployment" "api" {
 
       spec {
         container {
-          image = "your-docker-image:tag"
+          image = "shortlet:latest"
           name  = "time-api"
 
           port {

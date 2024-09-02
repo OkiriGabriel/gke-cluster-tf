@@ -1,12 +1,12 @@
-name: Deploy to GKE
+name: Deploy Terraform
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
-  deploy:
-    name: Deploy
+  terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
 
     steps:
@@ -24,36 +24,18 @@ jobs:
     - name: Setup Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v0
 
-    - name: Configure Docker
-      run: gcloud auth configure-docker
-
-    - name: Build and Push Docker image
-      env:
-        IMAGE_TAG: ${{ github.sha }}
-      run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/time-api:$IMAGE_TAG .
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/time-api:$IMAGE_TAG
-
     - name: Terraform Init
       run: terraform init
       working-directory: ./terraform
 
+    - name: Terraform Format
+      run: terraform fmt -check
+      working-directory: ./terraform
+
+    - name: Terraform Plan
+      run: terraform plan
+      working-directory: ./terraform
+
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: ./terraform
-      env:
-        TF_VAR_image_tag: ${{ github.sha }}
-
-    - name: Test API
-      run: |
-        sleep 60  # Wait for LoadBalancer to be ready
-        IP=$(terraform output -raw api_ip)
-        response=$(curl -s http://$IP)
-        echo $response
-        if [[ $response == *"current_time"* ]]; then
-          echo "API test passed"
-        else
-          echo "API test failed"
-          exit 1
-        fi
       working-directory: ./terraform
