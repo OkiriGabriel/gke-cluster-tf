@@ -18,33 +18,33 @@ resource "google_container_cluster" "primary" {
   # node pool and immediately delete it.
   remove_default_node_pool = true
   initial_node_count       = 1
-
+deletion_protection = true
   node_config {
     disk_size_gb = 50
   }
 
 }
 
-# resource "google_container_node_pool" "primary_nodes" {
-#   name       = "node-pool"
-#   location   = var.region
-#   cluster    = google_container_cluster.primary.name
-#   node_count = var.gke_num_nodes
+resource "google_container_node_pool" "primary_nodes" {
+  name       = "node-pool"
+  location   = var.region
+  cluster    = google_container_cluster.primary.name
+  node_count = var.gke_num_nodes
 
-#   node_config {
-#     oauth_scopes = [
-#       "https://www.googleapis.com/auth/logging.write",
-#       "https://www.googleapis.com/auth/monitoring",
-#     ]
+  node_config {
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+    ]
 
-#     labels = {
-#       env = var.project_id
-#     }
-#    disk_size_gb = 10 # 
-#     machine_type = var.machine_type
-#     tags         = ["gke-node", "${var.project_id}-gke"]
-#     metadata = {
-#       disable-legacy-endpoints = "true"
-#     }
-#   }
-# }
+    labels = {
+      env = var.project_id
+    }
+   disk_size_gb = 10 # 
+    machine_type = var.machine_type
+    tags         = ["gke-node", "${var.project_id}-gke"]
+    metadata = {
+      disable-legacy-endpoints = "true"
+    }
+  }
+}
