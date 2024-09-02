@@ -18,7 +18,7 @@ output "region" {
   description = "GCloud Region"
 }
 
-output "api_ip" {
-  value       = kubernetes_service.api.status.0.load_balancer.0.ingress.0.ip
-  description = "External IP address of the API service"
-}
+# output "api_ip" {
+#   value       = kubernetes_service.api.status.0.load_balancer.0.ingress.0.ip
+#   description = "External IP address of the API service"
+# }
