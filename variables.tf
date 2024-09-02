@@ -13,7 +13,7 @@ variable "region" {
 variable "gke_num_nodes" {
   description = "Number of nodes in the GKE cluster"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "machine_type" {

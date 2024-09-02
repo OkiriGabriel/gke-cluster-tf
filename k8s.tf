@@ -7,7 +7,7 @@ resource "kubernetes_deployment" "api" {
   }
 
   spec {
-    replicas = 3
+    replicas = 1
 
     selector {
       match_labels = {
@@ -42,7 +42,7 @@ resource "kubernetes_service" "api" {
   }
   spec {
     selector = {
-      app = kubernetes_deployment.api.metadata[0].labels.app
+      app = kubernetes_deployment.api.metadata.labels.app
     }
     port {
       port        = 80
